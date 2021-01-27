@@ -1,20 +1,15 @@
-import { FC, useState } from "react";
+import React, { FC, Fragment } from "react";
 import { StepRow } from "./StepRow";
 import cards from "../fixtures/worktops.json";
 import { CardList } from "./CardList";
 import { ImageFooterRow } from "./ImageFooterRow";
 import { TempText } from "./TempText";
-import { MainContext } from "./MainContext";
+import { MainContextProvider } from "../context/MainContext";
 import { RoomPreview } from "./RoomPreview";
 
-const Main: FC = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
-  const [isShrunk, setIsShrunk] = useState(false);
-
-  return (
-    <MainContext.Provider
-      value={{ selectedIndex, setSelectedIndex, isShrunk, setIsShrunk }}
-    >
+const Main: FC = () => (
+  <MainContextProvider>
+    <Fragment>
       <div className="relative">
         <RoomPreview imageHeight="768px" />
         <div className="absolute bottom-0 w-full">
@@ -40,8 +35,8 @@ const Main: FC = () => {
         </a>
       </div>
       <TempText />
-    </MainContext.Provider>
-  );
-};
+    </Fragment>
+  </MainContextProvider>
+);
 
 export default Main;

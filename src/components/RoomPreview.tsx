@@ -1,9 +1,14 @@
 import { FC, useContext, useEffect, useRef } from "react";
-import { MainContext } from "./MainContext";
+import { MainContext } from "../context/MainContext";
+
+const getPercentVisible = (rect: DOMRect) => {
+  const { top: outerTop, height: outerHeight } = rect;
+  return Math.round(((outerHeight + outerTop) / outerHeight) * 100);
+};
 
 export const RoomPreview: FC<{
   imageHeight: string;
-  shrinkTo?: "left" | "top" | "right";
+  shrinkTo?: "left" | "right";
 }> = ({ imageHeight, shrinkTo = "left" }) => {
   const imageOuterRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -17,7 +22,8 @@ export const RoomPreview: FC<{
       const {
         top: outerTop,
         bottom: outerBottom,
-        height: outerHeight,
+        left: outerLeft,
+        width: outerWidth,
       } = imageOuterElement.getBoundingClientRect();
 
       // When the image placeholder is above viewport - image should shrink
@@ -26,13 +32,16 @@ export const RoomPreview: FC<{
           setIsShrunk(true);
           imageInnerElement.style.position = "fixed";
           imageInnerElement.style.top = "0";
+          imageInnerElement.style.boxShadow = "0px 0px 5px 1px";
+
+          if (shrinkTo === "right") {
+            const rightPosition =
+              document.body.clientWidth - (outerLeft + outerWidth);
+            imageInnerElement.style.right = rightPosition + "px";
+          }
         }
 
-        const percentVisible = Math.round(
-          ((outerHeight + outerTop) / outerHeight) * 100
-        );
-
-        if (percentVisible > 30) {
+        if (getPercentVisible(imageOuterElement.getBoundingClientRect()) > 30) {
           imageInnerElement.style.height = outerBottom + "px";
         }
       }
@@ -43,14 +52,19 @@ export const RoomPreview: FC<{
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-  }, [isShrunk, setIsShrunk]);
+    if (typeof isShrunk === "undefined") {
+      window.addEventListener("scroll", handleScroll);
+    }
+  }, [isShrunk, setIsShrunk, shrinkTo]);
 
   useEffect(() => {
     if (!isShrunk) {
       const imageInnerElement = imageRef.current as HTMLImageElement;
       imageInnerElement.style.removeProperty("position");
       imageInnerElement.style.removeProperty("top");
+      imageInnerElement.style.removeProperty("right");
+      imageInnerElement.style.removeProperty("boxShadow");
+
       imageInnerElement.style.height = "100%";
     }
   }, [isShrunk]);

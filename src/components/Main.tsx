@@ -1,27 +1,22 @@
-import { createContext, FC, useState } from "react";
+import { FC, useState } from "react";
 import { StepRow } from "./StepRow";
 import cards from "../fixtures/worktops.json";
 import { CardList } from "./CardList";
 import { ImageFooterRow } from "./ImageFooterRow";
 import { TempText } from "./TempText";
-
-interface IMainContext {
-  selectedIndex: number;
-  setSelectedIndex: (index: number) => void;
-}
-
-export const MainContext = createContext<IMainContext>({
-  selectedIndex: -1,
-  setSelectedIndex: () => {},
-});
+import { MainContext } from "./MainContext";
+import { RoomPreview } from "./RoomPreview";
 
 const Main: FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const [isShrunk, setIsShrunk] = useState(false);
 
   return (
-    <MainContext.Provider value={{ selectedIndex, setSelectedIndex }}>
+    <MainContext.Provider
+      value={{ selectedIndex, setSelectedIndex, isShrunk, setIsShrunk }}
+    >
       <div className="relative">
-        <img src="/layers/Modern_style_base/Modern_style_base.png" alt="" />
+        <RoomPreview imageHeight="768px" />
         <div className="absolute bottom-0 w-full">
           <ImageFooterRow />
         </div>

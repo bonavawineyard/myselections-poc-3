@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Card, ICard } from "./Card";
-import { MainContext } from "./Main";
+import { MainContext } from "./MainContext";
 
 export const CardList: FC<{
   cards: ICard[];
@@ -12,6 +12,7 @@ export const CardList: FC<{
       {cards.map((cardItem, index) => (
         <Card
           {...cardItem}
+          key={`card_${index}`}
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
         />

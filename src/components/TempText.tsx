@@ -23,5 +23,26 @@ export const TempText = () => (
       ipsa, asperiores illo! Vero sit accusantium fugit eligendi natus eius
       accusamus porro atque.
     </p>
+    <br />
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore expedita
+      nihil dolorem repellendus, fugit quo officia sit? Accusantium sapiente
+      minima provident deserunt animi aspernatur, nobis obcaecati illum, libero,
+      dicta iste?
+    </p>
+    <br />
+    <p>
+      Provident sit sint nihil sed incidunt quod at facere facilis
+      exercitationem voluptas alias tempore illo modi, libero laborum eligendi
+      atque, excepturi accusamus temporibus? Ullam, non delectus molestiae
+      minima exercitationem dolorum.
+    </p>
+    <br />
+    <p>
+      Doloribus libero autem magnam nobis laboriosam maxime quam repellendus
+      reprehenderit corporis odio quia quibusdam iure molestiae provident
+      debitis, exercitationem in excepturi recusandae adipisci consequatur rerum
+      a odit esse illo? Ullam.
+    </p>
   </div>
 );

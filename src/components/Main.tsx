@@ -12,12 +12,15 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
+import { FixedShrink } from "./FixedShrink";
 
 const Main: FC = () => {
-  const navItems = [
+  const routes = [
     { text: "None", to: "/" },
     { text: "Shrink (left)", to: "/shrink-left" },
     { text: "Shrink (right)", to: "/shrink-right" },
+    { text: "Fixed shrink (left)", to: "/fixed-shrink-left" },
+    { text: "Fixed shrink (right)", to: "/fixed-shrink-right" },
   ];
 
   return (
@@ -26,7 +29,7 @@ const Main: FC = () => {
         <Fragment>
           <nav className="py-2">
             <ul className="flex gap-8">
-              {navItems.map(({ text, to }, index) => (
+              {routes.map(({ text, to }, index) => (
                 <NavLink
                   key={`navlink_${index}`}
                   to={to}
@@ -44,6 +47,7 @@ const Main: FC = () => {
               <Route path="/shrink-left">
                 <ShrinkOnScroll
                   imageHeight="768px"
+                  minHeight={30}
                   src="/layers/Modern_style_base/Modern_style_base.png"
                 />
                 <div className="absolute bottom-0 w-full">
@@ -52,6 +56,26 @@ const Main: FC = () => {
               </Route>
               <Route path="/shrink-right">
                 <ShrinkOnScroll
+                  imageHeight="768px"
+                  shrinkTo="right"
+                  minHeight={30}
+                  src="/layers/Modern_style_base/Modern_style_base.png"
+                />
+                <div className="absolute bottom-0 w-full">
+                  <ImageFooterRow />
+                </div>
+              </Route>
+              <Route path="/fixed-shrink-left">
+                <FixedShrink
+                  imageHeight="768px"
+                  src="/layers/Modern_style_base/Modern_style_base.png"
+                />
+                <div className="absolute bottom-0 w-full">
+                  <ImageFooterRow />
+                </div>
+              </Route>
+              <Route path="/fixed-shrink-right">
+                <FixedShrink
                   imageHeight="768px"
                   shrinkTo="right"
                   src="/layers/Modern_style_base/Modern_style_base.png"

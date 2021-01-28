@@ -30,19 +30,30 @@ const makeElementNotShrunk = (imageElement: HTMLImageElement) => {
 const updateImageElementHeight = (
   imageOuterElement: HTMLDivElement,
   imageElement: HTMLImageElement,
-  outerBottom: number
+  outerBottom: number,
+  minHeightPercent: number
 ) => {
-  if (getPercentVisible(imageOuterElement.getBoundingClientRect()) > 30) {
+  if (
+    getPercentVisible(imageOuterElement.getBoundingClientRect()) >
+    minHeightPercent
+  ) {
     imageElement.style.height = outerBottom + "px";
   }
 };
 
-export const shrinkOnScroll = (
-  imageOuterElement: HTMLDivElement,
-  imageInnerElement: HTMLImageElement,
-  shrinkTo: string,
-  onShrunkChange: (isShrunk: boolean) => void
-) => {
+export const shrinkOnScroll = ({
+  imageOuterElement,
+  imageElement,
+  shrinkTo,
+  minHeightPercent,
+  onShrunkChange,
+}: {
+  imageOuterElement: HTMLDivElement;
+  imageElement: HTMLImageElement;
+  shrinkTo: string;
+  minHeightPercent: number;
+  onShrunkChange: (isShrunk: boolean) => void;
+}) => {
   const {
     top: outerTop,
     bottom: outerBottom,
@@ -50,18 +61,64 @@ export const shrinkOnScroll = (
     width: outerWidth,
   } = imageOuterElement.getBoundingClientRect();
 
-  const isShrunk = imageInnerElement.style.position === "fixed";
+  const isShrunk = imageElement.style.position === "fixed";
 
   // When the image placeholder is above viewport - image should shrink
   if (outerTop < 0) {
     if (!isShrunk) {
-      makeElementShrunk(imageInnerElement, outerLeft, outerWidth, shrinkTo);
+      makeElementShrunk(imageElement, outerLeft, outerWidth, shrinkTo);
       onShrunkChange(isShrunk);
     }
 
-    updateImageElementHeight(imageOuterElement, imageInnerElement, outerBottom);
+    updateImageElementHeight(
+      imageOuterElement,
+      imageElement,
+      outerBottom,
+      minHeightPercent
+    );
   } else if (outerTop > 0 && isShrunk) {
-    makeElementNotShrunk(imageInnerElement);
+    makeElementNotShrunk(imageElement);
+    onShrunkChange(isShrunk);
+  }
+};
+
+export const fixedShrinkOnScroll = ({
+  imageOuterElement,
+  imageElement,
+  shrinkTo,
+  imageHeight,
+  onShrunkChange,
+}: {
+  imageOuterElement: HTMLDivElement;
+  imageElement: HTMLImageElement;
+  shrinkTo: string;
+  imageHeight: string;
+  onShrunkChange: (isShrunk: boolean) => void;
+}) => {
+  const {
+    top: outerTop,
+    left: outerLeft,
+    width: outerWidth,
+  } = imageOuterElement.getBoundingClientRect();
+
+  const isShrunk = imageElement.style.position === "fixed";
+
+  // When the image placeholder is above viewport - image should shrink
+  if (outerTop < 0) {
+    if (!isShrunk) {
+      makeElementShrunk(imageElement, outerLeft, outerWidth, shrinkTo);
+      imageElement.style.maxHeight = "200px";
+
+      onShrunkChange(isShrunk);
+    }
+  } else if (outerTop > 0 && isShrunk) {
+    imageElement.style.maxHeight = imageHeight;
+    if (shrinkTo === "left") {
+      makeElementNotShrunk(imageElement);
+    } else {
+      imageElement.style.position = "absolute";
+      imageElement.style.right = "0";
+    }
     onShrunkChange(isShrunk);
   }
 };

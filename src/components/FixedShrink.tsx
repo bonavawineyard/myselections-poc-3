@@ -1,13 +1,12 @@
 import { FC, useContext, useEffect, useRef } from "react";
 import { MainContext } from "../context/MainContext";
-import { shrinkOnScroll } from "../utils/shrinkOnScroll";
+import { fixedShrinkOnScroll } from "../utils/shrinkOnScroll";
 
-export const ShrinkOnScroll: FC<{
+export const FixedShrink: FC<{
   imageHeight: string;
-  minHeight: number;
   shrinkTo?: "left" | "right";
   src: string;
-}> = ({ imageHeight, shrinkTo = "left", src, minHeight }) => {
+}> = ({ imageHeight, shrinkTo = "left", src }) => {
   const imageOuterRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const { setIsShrunk } = useContext(MainContext);
@@ -21,11 +20,11 @@ export const ShrinkOnScroll: FC<{
         setIsShrunk(!isShrunk);
       };
 
-      shrinkOnScroll({
+      fixedShrinkOnScroll({
         imageOuterElement,
         imageElement,
         shrinkTo,
-        minHeightPercent: minHeight,
+        imageHeight,
         onShrunkChange: toggleShrunkState,
       });
     };
@@ -35,11 +34,19 @@ export const ShrinkOnScroll: FC<{
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [setIsShrunk, shrinkTo, minHeight]);
+  }, [imageHeight, setIsShrunk, shrinkTo]);
 
   return (
     <div ref={imageOuterRef} style={{ height: imageHeight }}>
-      <img ref={imageRef} src={src} alt="" style={{ height: "100%" }} />
+      <img
+        ref={imageRef}
+        src={src}
+        alt=""
+        style={{
+          maxHeight: "768px",
+          transition: "all 0.3s",
+        }}
+      />
     </div>
   );
 };

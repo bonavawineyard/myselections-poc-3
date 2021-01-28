@@ -4,7 +4,7 @@ const getPercentVisible = (rect: DOMRect) => {
 };
 
 const makeElementShrunk = (
-  imageElement: HTMLImageElement,
+  imageElement: HTMLDivElement,
   outerLeft: number,
   outerWidth: number,
   shrinkTo: string
@@ -19,7 +19,7 @@ const makeElementShrunk = (
   }
 };
 
-const makeElementNotShrunk = (imageElement: HTMLImageElement) => {
+const makeElementNotShrunk = (imageElement: HTMLDivElement) => {
   imageElement.style.removeProperty("position");
   imageElement.style.removeProperty("top");
   imageElement.style.removeProperty("right");
@@ -29,7 +29,7 @@ const makeElementNotShrunk = (imageElement: HTMLImageElement) => {
 
 const updateImageElementHeight = (
   imageOuterElement: HTMLDivElement,
-  imageElement: HTMLImageElement,
+  imageElement: HTMLDivElement,
   outerBottom: number,
   minHeightPercent: number
 ) => {
@@ -49,7 +49,7 @@ export const shrinkOnScroll = ({
   onShrunkChange,
 }: {
   imageOuterElement: HTMLDivElement;
-  imageElement: HTMLImageElement;
+  imageElement: HTMLDivElement;
   shrinkTo: string;
   minHeightPercent: number;
   onShrunkChange: (isShrunk: boolean) => void;
@@ -90,7 +90,7 @@ export const fixedShrinkOnScroll = ({
   onShrunkChange,
 }: {
   imageOuterElement: HTMLDivElement;
-  imageElement: HTMLImageElement;
+  imageElement: HTMLDivElement;
   shrinkTo: string;
   imageHeight: string;
   onShrunkChange: (isShrunk: boolean) => void;

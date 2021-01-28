@@ -1,45 +1,36 @@
-import { FC, useContext, useEffect, useRef } from "react";
-import { MainContext } from "../context/MainContext";
-import { shrinkOnScroll } from "../utils/shrinkOnScroll";
+import { FC, ReactNode, useRef } from "react";
+import { useShrinkOnScroll } from "../hooks/useShrinkOnScroll";
 
 export const ShrinkOnScroll: FC<{
   imageHeight: string;
   minHeight: number;
   shrinkTo?: "left" | "right";
-  src: string;
-}> = ({ imageHeight, shrinkTo = "left", src, minHeight }) => {
+  fixedSize?: boolean;
+  children: ReactNode;
+}> = ({
+  imageHeight,
+  shrinkTo = "left",
+  minHeight,
+  children,
+  fixedSize = false,
+}) => {
   const imageOuterRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const { setIsShrunk } = useContext(MainContext);
+  const imageRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const imageElement = imageRef.current as HTMLImageElement;
-    const imageOuterElement = imageOuterRef.current as HTMLDivElement;
-
-    const handleScroll = () => {
-      const toggleShrunkState = (isShrunk: boolean) => {
-        setIsShrunk(!isShrunk);
-      };
-
-      shrinkOnScroll({
-        imageOuterElement,
-        imageElement,
-        shrinkTo,
-        minHeightPercent: minHeight,
-        onShrunkChange: toggleShrunkState,
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [setIsShrunk, shrinkTo, minHeight]);
+  useShrinkOnScroll({
+    imageHeight,
+    imageOuterRef,
+    imageRef,
+    shrinkTo,
+    fixedSize,
+    minHeight,
+  });
 
   return (
     <div ref={imageOuterRef} style={{ height: imageHeight }}>
-      <img ref={imageRef} src={src} alt="" style={{ height: "100%" }} />
+      <div ref={imageRef} style={{ height: "100%" }}>
+        {children}
+      </div>
     </div>
   );
 };

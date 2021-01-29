@@ -3,6 +3,7 @@ import { createContext, FC, ReactNode, useState } from "react";
 interface IRoute {
   text: string;
   to: string;
+  icon: string;
   shrinkTo?: "left" | "right";
   fixedSize: boolean;
 }
@@ -24,26 +25,30 @@ const defaultValues = {
 
 const routes: IRoute[] = [
   {
-    text: "Shrink (left)",
+    text: "Shrink",
+    icon: "↖",
     to: "/shrink-left",
     shrinkTo: "left",
     fixedSize: false,
   },
   {
-    text: "Shrink (right)",
+    text: "Shrink",
+    icon: "↗",
     to: "/shrink-right",
     shrinkTo: "right",
     fixedSize: false,
   },
   {
-    text: "Fixed shrink (left)",
-    to: "/fixed-shrink-left",
+    text: "Fixed size",
+    icon: "↖",
+    to: "/fixed-size-left",
     shrinkTo: "left",
     fixedSize: true,
   },
   {
-    text: "Fixed shrink (right)",
-    to: "/fixed-shrink-right",
+    text: "Fixed size",
+    icon: "↗",
+    to: "/fixed-size-right",
     shrinkTo: "right",
     fixedSize: true,
   },

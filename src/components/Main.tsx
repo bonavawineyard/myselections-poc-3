@@ -1,12 +1,12 @@
 import React, { FC, Fragment } from "react";
-import { StepRow } from "./StepRow";
+import { StepRow } from "./Step/StepRow";
 import cards from "../fixtures/worktops.json";
-import { CardList } from "./CardList";
+import { CardList } from "./Card/CardList";
 import { TempText } from "./TempText";
 import { MainContextProvider } from "../context/MainContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MainNav } from "./MainNav";
-import { ShrinkExamples } from "./ShrinkExamples";
+import { ShrinkExamples } from "./Scroll/ShrinkExamples";
 import { ImageFooterRow } from "./ImageFooterRow";
 
 const Main: FC = () => (

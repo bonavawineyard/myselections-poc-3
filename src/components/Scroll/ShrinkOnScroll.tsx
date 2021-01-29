@@ -1,5 +1,5 @@
 import { FC, ReactNode, useRef } from "react";
-import { useShrinkOnScroll } from "../hooks/useShrinkOnScroll";
+import { useShrinkOnScroll } from "../../hooks/useShrinkOnScroll";
 
 export const ShrinkOnScroll: FC<{
   imageHeight: string;

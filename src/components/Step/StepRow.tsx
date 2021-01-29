@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import Icon from "./Icon";
+import Icon from "../Icon";
 import { StepDone } from "./StepDone";
 import { StepLabel } from "./StepLabel";
 

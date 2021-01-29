@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Card, ICard } from "./Card";
-import { MainContext } from "../context/MainContext";
+import { MainContext } from "../../context/MainContext";
 
 export const CardList: FC<{
   cards: ICard[];

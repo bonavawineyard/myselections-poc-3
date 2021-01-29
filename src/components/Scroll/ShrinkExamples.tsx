@@ -1,7 +1,6 @@
 import React, { FC, Fragment, ReactNode, useContext } from "react";
 import { Route, Switch } from "react-router-dom";
-import { MainContext } from "../context/MainContext";
-import { ImageFooterRow } from "./ImageFooterRow";
+import { MainContext } from "../../context/MainContext";
 import { ShrinkOnScroll } from "./ShrinkOnScroll";
 
 export const ShrinkExamples: FC<ReactNode> = ({ children }) => {

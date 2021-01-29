@@ -5,9 +5,9 @@ export const Card: FC<ICard> = ({ name, price, text, selected, onSelect }) => {
   return (
     <article className="border flex flex-col">
       <img src={`/card/card_${name.toLowerCase()}.png`} alt="" />
-      <header className="text-center border-b p-2">
+      <header className="text-center  p-2">
         <h3>{name}</h3>
-        <div>{price}</div>
+        <div className="border-b">{price}</div>
       </header>
       <section className="py-1 px-3">
         <p>{text}</p>

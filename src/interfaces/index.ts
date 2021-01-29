@@ -31,10 +31,12 @@ export interface ILayerImage {
 }
 
 export interface IMainContext {
+  activeStep: number;
   isShrunk?: boolean | null;
   layerImages?: ILayerImage[];
   routes: IRoute[];
   selectedIndex: number;
+  setActiveStep: Dispatch<SetStateAction<number>>;
   setIsShrunk: (isShrunk: boolean) => void;
   setLayerImages: Dispatch<SetStateAction<ILayerImage[] | undefined>>;
   setSelectedIndex: (index: number) => void;

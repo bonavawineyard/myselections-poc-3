@@ -1,0 +1,30 @@
+[
+  {
+    "src": "/layers/White_goods/SS_fridge.png",
+    "type": "whitegoods_fridge",
+    "name": "Stainless Fridge",
+    "price": "1 234:-",
+    "text": "Eiusmod tempor culpa occaecat reprehenderit veniam pariatur reprehenderit id Lorem fugiat cupidatat cillum consequat."
+  },
+  {
+    "src": "/layers/White_goods/White_fridge.png",
+    "type": "whitegoods_fridge",
+    "name": "White Fridge",
+    "price": "2 345:-",
+    "text": "Ullamco esse occaecat est labore id. Velit aliquip esse est id cupidatat id nostrud excepteur."
+  },
+  {
+    "src": "/layers/White_goods/SS_Micro_Oven.png",
+    "type": "whitegoods_micro",
+    "name": "Stainless Microwave",
+    "price": "3 456:-",
+    "text": "Irure eu magna eu do sit duis pariatur ad adipisicing. In amet esse fugiat duis et deserunt aute eiusmod tempor aliquip eu."
+  },
+  {
+    "src": "/layers/White_goods/White_Micro_Oven.png",
+    "type": "whitegoods_micro",
+    "name": "White Microwave",
+    "price": "4 567:-",
+    "text": "Irure eu magna eu do sit duis pariatur ad adipisicing. In amet esse fugiat duis et deserunt aute eiusmod tempor aliquip eu."
+  }
+]

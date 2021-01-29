@@ -10,7 +10,8 @@ export const StepRow: FC<{
   price?: string;
   open?: boolean;
   children?: ReactNode;
-}> = ({ text, done, stepNumber, price, open, children }) => {
+  onSelect: () => void;
+}> = ({ text, done, stepNumber, price, open, children, onSelect }) => {
   const collapsedIcon = open ? "chevronUp" : "chevronDown";
   const icon = done ? "chevronRight" : collapsedIcon;
 
@@ -18,7 +19,9 @@ export const StepRow: FC<{
     <div className="border-b border-forrestgreen py-3 px-1">
       <div className="flex items-center ">
         {done ? <StepDone /> : <StepLabel text={stepNumber} />}
-        <div className="mx-2">{text}</div>
+        <button className="mx-2" onClick={onSelect}>
+          {text}
+        </button>
         <div className="h-5 w-5">
           <Icon type={icon} />
         </div>

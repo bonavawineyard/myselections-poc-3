@@ -3,20 +3,17 @@ import { MainContext } from "../context/MainContext";
 
 export const Layers = () => {
   const { shrinkTo, isShrunk, layerImages } = useContext(MainContext);
-
-  const getStyle = (index: number) =>
-    index === 0 && isShrunk ? { boxShadow: "0px 0px 5px 1px" } : {};
-
-  console.log(layerImages);
+  const getStyle = (isBaseImage: boolean) =>
+    isBaseImage && isShrunk ? { boxShadow: "0px 0px 5px 1px" } : {};
 
   return (
     <div className="max-h-full h-full relative">
-      {layerImages?.map((src, index) => (
+      {layerImages?.map((layerImage, index) => (
         <img
           key={`layer_${index}`}
-          src={src}
+          src={layerImage.src}
           alt=""
-          style={getStyle(index)}
+          style={getStyle(layerImage.type === "base")}
           className={`max-h-full absolute ${
             shrinkTo === "right" ? "right-0" : ""
           }`}

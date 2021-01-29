@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Shrink",
+    "icon": "⤡",
+    "to": "/shrink-left",
+    "shrinkTo": "left",
+    "fixedSize": false
+  },
+  {
+    "text": "Shrink",
+    "icon": "⤢",
+    "to": "/shrink-right",
+    "shrinkTo": "right",
+    "fixedSize": false
+  },
+  {
+    "text": "Fixed size",
+    "icon": "⤡",
+    "to": "/fixed-size-left",
+    "shrinkTo": "left",
+    "fixedSize": true
+  },
+  {
+    "text": "Fixed size",
+    "icon": "⤢",
+    "to": "/fixed-size-right",
+    "shrinkTo": "right",
+    "fixedSize": true
+  }
+]

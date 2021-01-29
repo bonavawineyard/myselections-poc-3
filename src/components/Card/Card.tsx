@@ -1,12 +1,5 @@
 import { FC } from "react";
-
-export interface ICard {
-  name: string;
-  price: string;
-  text: string;
-  selected?: boolean;
-  onSelect?: () => void;
-}
+import { ICard } from "../../interfaces";
 
 export const Card: FC<ICard> = ({ name, price, text, selected, onSelect }) => {
   return (

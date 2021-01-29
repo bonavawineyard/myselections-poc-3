@@ -9,6 +9,7 @@ import { MainNav } from "./MainNav";
 import { ShrinkExamples } from "./Scroll/ShrinkExamples";
 import { ImageFooterRow } from "./ImageFooterRow";
 import { Layers } from "./Layers";
+import { ICard } from "../interfaces";
 
 const Main: FC = () => (
   <Router>
@@ -30,7 +31,7 @@ const Main: FC = () => (
             price="119 900:-"
           />
           <StepRow text="Bänkskiva och stänkskydd" stepNumber="2" open>
-            <CardList cards={cards} />
+            <CardList cards={cards as ICard[]} />
           </StepRow>
           <StepRow text="Uppgradera vitvaror" stepNumber="3" />
         </div>

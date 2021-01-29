@@ -1,6 +1,4 @@
-interface IIcon {
-  type: "check" | "chevronRight" | "chevronDown" | "chevronUp";
-}
+import { IIcon } from "../interfaces";
 
 const Icon: React.FunctionComponent<IIcon> = ({ type }) => {
   const paths: any = {

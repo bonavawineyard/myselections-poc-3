@@ -2,7 +2,7 @@ import { FC, ReactNode, useRef } from "react";
 import { useShrinkOnScroll } from "../../hooks/useShrinkOnScroll";
 
 export const ShrinkOnScroll: FC<{
-  imageHeight: string;
+  imageHeight: number;
   minHeight: number;
   shrinkTo?: "left" | "right";
   fixedSize?: boolean;

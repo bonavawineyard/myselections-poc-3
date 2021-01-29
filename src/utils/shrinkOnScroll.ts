@@ -6,24 +6,23 @@ const getPercentVisible = (rect: DOMRect) => {
 const makeElementShrunk = (
   imageElement: HTMLDivElement,
   outerLeft: number,
-  outerWidth: number,
-  shrinkTo: string
+  outerWidth: number
 ) => {
   imageElement.style.position = "fixed";
   imageElement.style.top = "0";
-  imageElement.style.boxShadow = "0px 0px 5px 1px";
+  // imageElement.style.boxShadow = "0px 0px 5px 1px";
 
-  if (shrinkTo === "right") {
-    const rightPosition = document.body.clientWidth - (outerLeft + outerWidth);
-    imageElement.style.right = rightPosition + "px";
-  }
+  const horizontalPosition =
+    document.body.clientWidth - (outerLeft + outerWidth);
+  imageElement.style.left = horizontalPosition + "px";
+  imageElement.style.right = horizontalPosition + "px";
 };
 
 const makeElementNotShrunk = (imageElement: HTMLDivElement) => {
   imageElement.style.removeProperty("position");
   imageElement.style.removeProperty("top");
   imageElement.style.removeProperty("right");
-  imageElement.style.removeProperty("box-shadow");
+  // imageElement.style.removeProperty("box-shadow");
   imageElement.style.height = "100%";
 };
 
@@ -47,12 +46,16 @@ export const shrinkOnScroll = ({
   shrinkTo,
   minHeightPercent,
   onShrunkChange,
+  fixedSize,
+  imageHeight,
 }: {
   imageOuterElement: HTMLDivElement;
   imageElement: HTMLDivElement;
   shrinkTo: string;
   minHeightPercent: number;
   onShrunkChange: (isShrunk: boolean) => void;
+  fixedSize: boolean;
+  imageHeight: number;
 }) => {
   const {
     top: outerTop,
@@ -66,7 +69,13 @@ export const shrinkOnScroll = ({
   // When the image placeholder is above viewport - image should shrink
   if (outerTop < 0) {
     if (!isShrunk) {
-      makeElementShrunk(imageElement, outerLeft, outerWidth, shrinkTo);
+      if (fixedSize) {
+        imageElement.style.maxHeight = `${
+          (minHeightPercent / 100) * imageHeight
+        }px`;
+      }
+
+      makeElementShrunk(imageElement, outerLeft, outerWidth);
       onShrunkChange(isShrunk);
     }
 
@@ -77,48 +86,18 @@ export const shrinkOnScroll = ({
       minHeightPercent
     );
   } else if (outerTop > 0 && isShrunk) {
-    makeElementNotShrunk(imageElement);
-    onShrunkChange(isShrunk);
-  }
-};
-
-export const fixedShrinkOnScroll = ({
-  imageOuterElement,
-  imageElement,
-  shrinkTo,
-  imageHeight,
-  onShrunkChange,
-}: {
-  imageOuterElement: HTMLDivElement;
-  imageElement: HTMLDivElement;
-  shrinkTo: string;
-  imageHeight: string;
-  onShrunkChange: (isShrunk: boolean) => void;
-}) => {
-  const {
-    top: outerTop,
-    left: outerLeft,
-    width: outerWidth,
-  } = imageOuterElement.getBoundingClientRect();
-
-  const isShrunk = imageElement.style.position === "fixed";
-
-  // When the image placeholder is above viewport - image should shrink
-  if (outerTop < 0) {
-    if (!isShrunk) {
-      makeElementShrunk(imageElement, outerLeft, outerWidth, shrinkTo);
-      imageElement.style.maxHeight = "200px";
-
-      onShrunkChange(isShrunk);
-    }
-  } else if (outerTop > 0 && isShrunk) {
-    imageElement.style.maxHeight = imageHeight;
-    if (shrinkTo === "left") {
-      makeElementNotShrunk(imageElement);
+    if (fixedSize) {
+      imageElement.style.maxHeight = `${imageHeight}px`;
+      if (shrinkTo === "left") {
+        makeElementNotShrunk(imageElement);
+      } else {
+        imageElement.style.position = "absolute";
+        imageElement.style.right = "0";
+      }
     } else {
-      imageElement.style.position = "absolute";
-      imageElement.style.right = "0";
+      makeElementNotShrunk(imageElement);
     }
+
     onShrunkChange(isShrunk);
   }
 };

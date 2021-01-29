@@ -10,13 +10,13 @@ export const ShrinkExamples: FC<ReactNode> = ({ children }) => {
     <div className="relative">
       <Switch>
         <Route path="/" exact>
-          {children}
+          <div style={{ height: "768px" }}>{children}</div>
         </Route>
         <Fragment>
           {routes.map((route, index) => (
             <Route path={route.to} key={`route_${index}`}>
               <ShrinkOnScroll
-                imageHeight="768px"
+                imageHeight={768}
                 minHeight={30}
                 shrinkTo={route.shrinkTo}
                 fixedSize={route.fixedSize}

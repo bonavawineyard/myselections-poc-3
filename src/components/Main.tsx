@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { MainNav } from "./MainNav";
 import { ShrinkExamples } from "./Scroll/ShrinkExamples";
 import { ImageFooterRow } from "./ImageFooterRow";
+import { Layers } from "./Layers";
 
 const Main: FC = () => (
   <Router>
@@ -15,11 +16,7 @@ const Main: FC = () => (
       <Fragment>
         <MainNav />
         <ShrinkExamples>
-          <img
-            src="/layers/Modern_style_base/Modern_style_base.png"
-            alt="Modern Style Base"
-            className="max-h-full"
-          />
+          <Layers />
           <div className="absolute bottom-0 w-full">
             <ImageFooterRow />
           </div>

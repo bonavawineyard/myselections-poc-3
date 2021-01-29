@@ -1,6 +1,6 @@
 import { MutableRefObject, useContext, useEffect } from "react";
 import { MainContext } from "../context/MainContext";
-import { fixedShrinkOnScroll, shrinkOnScroll } from "../utils/shrinkOnScroll";
+import { shrinkOnScroll } from "../utils/shrinkOnScroll";
 
 export const useShrinkOnScroll = ({
   imageRef,
@@ -12,12 +12,18 @@ export const useShrinkOnScroll = ({
 }: {
   imageRef: MutableRefObject<HTMLDivElement | null>;
   imageOuterRef: MutableRefObject<HTMLDivElement | null>;
-  shrinkTo: string;
-  imageHeight: string;
+  shrinkTo: "left" | "right";
+  imageHeight: number;
   fixedSize: boolean;
   minHeight: number;
 }) => {
-  const { setIsShrunk } = useContext(MainContext);
+  const { setIsShrunk, setShrinkTo } = useContext(MainContext);
+
+  useEffect(() => {
+    if (setShrinkTo) {
+      setShrinkTo(shrinkTo);
+    }
+  }, [setShrinkTo, shrinkTo]);
 
   useEffect(() => {
     const imageElement = imageRef.current as HTMLDivElement;
@@ -30,27 +36,21 @@ export const useShrinkOnScroll = ({
 
       if (fixedSize) {
         imageElement.style.transition = "all 0.3s";
-
-        fixedShrinkOnScroll({
-          imageOuterElement,
-          imageElement,
-          shrinkTo,
-          imageHeight,
-          onShrunkChange: toggleShrunkState,
-        });
-      } else {
-        shrinkOnScroll({
-          imageOuterElement,
-          imageElement,
-          shrinkTo,
-          minHeightPercent: minHeight,
-          onShrunkChange: toggleShrunkState,
-        });
       }
+
+      shrinkOnScroll({
+        imageOuterElement,
+        imageElement,
+        shrinkTo,
+        minHeightPercent: minHeight,
+        onShrunkChange: toggleShrunkState,
+        fixedSize,
+        imageHeight,
+      });
     };
 
     if (fixedSize) {
-      imageElement.style.maxHeight = imageHeight;
+      imageElement.style.maxHeight = `${imageHeight}px`;
     }
 
     window.addEventListener("scroll", handleScroll);

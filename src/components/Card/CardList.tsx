@@ -6,16 +6,27 @@ import { ICard } from "../../interfaces";
 export const CardList: FC<{
   cards: ICard[];
 }> = ({ cards }) => {
-  const { selectedIndex, setSelectedIndex } = useContext(MainContext);
+  const { selectedIndex, setSelectedIndex, setLayerImages } = useContext(
+    MainContext
+  );
+
+  const handleSelect = (card: ICard, index: number) => {
+    setSelectedIndex(index);
+
+    setLayerImages((layerImages) => [
+      ...(layerImages?.filter(({ type }) => type !== card.type) || []),
+      { src: card.src, type: card.type },
+    ]);
+  };
 
   return (
     <div className="w-full grid grid-cols-4 gap-2 py-4">
-      {cards.map((cardItem, index) => (
+      {cards.map((card, index) => (
         <Card
-          {...cardItem}
+          {...card}
           key={`card_${index}`}
           selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
+          onSelect={() => handleSelect(card, index)}
         />
       ))}
     </div>

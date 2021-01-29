@@ -22,7 +22,6 @@ const makeElementNotShrunk = (imageElement: HTMLDivElement) => {
   imageElement.style.removeProperty("position");
   imageElement.style.removeProperty("top");
   imageElement.style.removeProperty("right");
-  // imageElement.style.removeProperty("box-shadow");
   imageElement.style.height = "100%";
 };
 
@@ -93,6 +92,7 @@ export const shrinkOnScroll = ({
       } else {
         imageElement.style.position = "absolute";
         imageElement.style.right = "0";
+        imageElement.style.left = "0";
       }
     } else {
       makeElementNotShrunk(imageElement);

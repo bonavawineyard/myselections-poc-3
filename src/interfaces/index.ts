@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 type ILayerType = "base" | "worktop" | "whitegoods";
 type IShrinkTo = "left" | "right";
 
@@ -34,7 +36,7 @@ export interface IMainContext {
   routes: IRoute[];
   selectedIndex: number;
   setIsShrunk: (isShrunk: boolean) => void;
-  setLayerImages?: (layerImages: ILayerImage[]) => void;
+  setLayerImages: Dispatch<SetStateAction<ILayerImage[] | undefined>>;
   setSelectedIndex: (index: number) => void;
   setShrinkTo?: (shrinkTo: IShrinkTo) => void;
   shrinkTo?: IShrinkTo;

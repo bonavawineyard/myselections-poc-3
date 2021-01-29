@@ -6,6 +6,7 @@ const defaultValues = {
   selectedIndex: -1,
   setSelectedIndex: () => {},
   setIsShrunk: () => {},
+  setLayerImages: () => {},
   routes,
   layerImages: [
     {
@@ -30,15 +31,15 @@ export const MainContextProvider: FC<{ children: ReactNode }> = ({
   return (
     <MainContext.Provider
       value={{
-        selectedIndex,
-        setSelectedIndex,
         isShrunk,
-        setIsShrunk,
-        routes: defaultValues.routes,
-        shrinkTo,
-        setShrinkTo,
         layerImages,
+        routes: defaultValues.routes,
+        selectedIndex,
+        setIsShrunk,
         setLayerImages,
+        setSelectedIndex,
+        setShrinkTo,
+        shrinkTo,
       }}
     >
       {children}

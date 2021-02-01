@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-type ILayerType = "base" | "worktop" | "whitegoods";
+type ILayerType = "base" | "worktop" | "whitegoods_fridge" | "whitegoods_micro";
 type IShrinkTo = "left" | "right";
 
 export interface ICard {
@@ -30,16 +30,23 @@ export interface ILayerImage {
   type: ILayerType;
 }
 
+export interface ISelectedIndex {
+  base?: number;
+  whitegoods_fridge: number;
+  whitegoods_micro: number;
+  worktop: number;
+}
+
 export interface IMainContext {
   activeStep: number;
   isShrunk?: boolean | null;
   layerImages?: ILayerImage[];
   routes: IRoute[];
-  selectedIndex: number;
+  selectedIndex: ISelectedIndex;
   setActiveStep: Dispatch<SetStateAction<number>>;
   setIsShrunk: (isShrunk: boolean) => void;
   setLayerImages: Dispatch<SetStateAction<ILayerImage[] | undefined>>;
-  setSelectedIndex: (index: number) => void;
+  setSelectedIndex: Dispatch<SetStateAction<ISelectedIndex>>;
   setShrinkTo?: (shrinkTo: IShrinkTo) => void;
   shrinkTo?: IShrinkTo;
 }

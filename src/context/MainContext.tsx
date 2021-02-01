@@ -11,7 +11,11 @@ const defaultValues = {
     },
   ],
   routes,
-  selectedIndex: -1,
+  selectedIndex: {
+    whitegoods_fridge: -1,
+    whitegoods_micro: -1,
+    worktop: -1,
+  },
   setActiveStep: () => {},
   setIsShrunk: () => {},
   setLayerImages: () => {},

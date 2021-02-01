@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Card } from "./Card";
 import { MainContext } from "../../context/MainContext";
-import { ICard } from "../../interfaces";
+import { ICard, ISelectedIndex } from "../../interfaces";
 
 export const CardList: FC<{
   cards: ICard[];
@@ -11,7 +11,10 @@ export const CardList: FC<{
   );
 
   const handleSelect = (card: ICard, index: number) => {
-    setSelectedIndex(index);
+    setSelectedIndex((oldSelectedIndex: ISelectedIndex) => ({
+      ...oldSelectedIndex,
+      [card.type]: index,
+    }));
 
     setLayerImages((layerImages) => [
       ...(layerImages?.filter(({ type }) => type !== card.type) || []),
@@ -25,7 +28,7 @@ export const CardList: FC<{
         <Card
           {...card}
           key={`card_${index}`}
-          selected={index === selectedIndex}
+          selected={index === selectedIndex[card.type]}
           onSelect={() => handleSelect(card, index)}
         />
       ))}

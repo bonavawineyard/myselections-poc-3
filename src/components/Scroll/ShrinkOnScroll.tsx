@@ -27,7 +27,11 @@ export const ShrinkOnScroll: FC<{
   });
 
   return (
-    <div ref={imageOuterRef} style={{ height: imageHeight }}>
+    <div
+      ref={imageOuterRef}
+      style={{ height: imageHeight }}
+      className="pointer-events-none"
+    >
       <div ref={imageRef} style={{ height: "100%" }}>
         {children}
       </div>

@@ -19,12 +19,12 @@ export const StepRow: FC<{
     <div className="border-b border-forrestgreen py-3 px-1">
       <div className="flex items-center ">
         {done ? <StepDone /> : <StepLabel text={stepNumber} />}
-        <button className="mx-2" onClick={onSelect}>
+        <button className="mx-2 flex items-center" onClick={onSelect}>
           {text}
+          <div className="h-5 w-5 ml-3">
+            <Icon type={icon} />
+          </div>
         </button>
-        <div className="h-5 w-5">
-          <Icon type={icon} />
-        </div>
         <div className="ml-auto text-sm">{price}</div>
       </div>
       {open && <div>{children}</div>}

@@ -5,7 +5,7 @@ import { StepLabel } from "./StepLabel";
 
 export const StepRow: FC<{
   text: string;
-  done?: boolean;
+  done: boolean;
   stepNumber: string;
   price?: string;
   open?: boolean;

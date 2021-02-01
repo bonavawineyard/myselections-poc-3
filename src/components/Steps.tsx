@@ -15,7 +15,22 @@ const StepContent: FC<{ activeStep: number }> = ({ activeStep }) =>
   ][activeStep];
 
 export const Steps = () => {
-  const { activeStep, setActiveStep } = useContext(MainContext);
+  const { activeStep, setActiveStep, selectedIndex } = useContext(MainContext);
+
+  const isDone = (step: any, index: number) => {
+    if (index === 0) {
+      return true;
+    } else if (index === 1) {
+      return selectedIndex.worktop >= 0;
+    } else if (index === 2) {
+      return (
+        selectedIndex.whitegoods_fridge >= 0 ||
+        selectedIndex.whitegoods_micro >= 0
+      );
+    }
+
+    return false;
+  };
 
   return (
     <div>
@@ -25,8 +40,8 @@ export const Steps = () => {
           text={step.text}
           stepNumber={`${index + 1}`}
           open={activeStep === index}
-          done={index < 1}
-          onSelect={() => setActiveStep(index)}
+          done={isDone(step, index)}
+          onSelect={() => setActiveStep(activeStep >= 0 ? -1 : index)}
         >
           <StepContent activeStep={activeStep} />
         </StepRow>

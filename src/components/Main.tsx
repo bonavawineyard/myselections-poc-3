@@ -26,7 +26,9 @@ const Main: FC = () => (
             valen som påverkar hela hemmet
           </a>
         </div>
-        <TempText />
+        <div className="mt-80">
+          <TempText />
+        </div>
       </Fragment>
     </MainContextProvider>
   </Router>

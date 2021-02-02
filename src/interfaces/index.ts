@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 type ILayerType = "base" | "worktop" | "whitegoods_fridge" | "whitegoods_micro";
-type IShrinkTo = "left" | "right";
+export type IShrinkTo = "left" | "right";
+export type IBehaviour = "shrink_on_scroll" | "fixed_size";
 
 export interface ICard {
   name: string;
@@ -22,7 +23,7 @@ export interface IRoute {
   to: string;
   icon: string;
   shrinkTo?: IShrinkTo;
-  fixedSize: boolean;
+  behaviour: IBehaviour;
 }
 
 export interface ILayerImage {

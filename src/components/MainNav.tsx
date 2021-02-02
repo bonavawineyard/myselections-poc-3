@@ -15,12 +15,12 @@ export const MainNav = () => {
           <NavLink
             key={`navlink_${index}`}
             to={to}
-            activeClassName="font-bold"
+            activeClassName="font-bold border-b-2 border-black"
             className="relative mr-5"
           >
             {text}
             <span
-              className="font-normal text-2xl absolute bottom-0 text-mint"
+              className="font-bold text-2xl absolute bottom-0 text-forrestgreen"
               style={{ left: "calc(100% + 0.3rem)" }}
             >
               {icon}

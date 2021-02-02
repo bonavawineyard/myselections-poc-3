@@ -19,7 +19,7 @@ export const ShrinkExamples: FC<ReactNode> = ({ children }) => {
                 imageHeight={768}
                 minHeight={30}
                 shrinkTo={route.shrinkTo}
-                fixedSize={route.fixedSize}
+                behaviour={route.behaviour}
               >
                 {children}
               </ShrinkOnScroll>

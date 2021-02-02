@@ -1,5 +1,5 @@
 import { createContext, FC, ReactNode, useState } from "react";
-import { IMainContext } from "../interfaces";
+import { IMainContext, IShrinkTo } from "../interfaces";
 import routes from "../fixtures/routes.json";
 
 const defaultValues = {
@@ -31,7 +31,7 @@ export const MainContextProvider: FC<{ children: ReactNode }> = ({
     defaultValues.selectedIndex
   );
   const [isShrunk, setIsShrunk] = useState<boolean | null>();
-  const [shrinkTo, setShrinkTo] = useState<"left" | "right">();
+  const [shrinkTo, setShrinkTo] = useState<IShrinkTo>();
   const [layerImages, setLayerImages] = useState(defaultValues.layerImages);
   const [activeStep, setActiveStep] = useState(defaultValues.activeStep);
 

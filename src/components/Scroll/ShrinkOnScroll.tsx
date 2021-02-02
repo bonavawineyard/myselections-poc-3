@@ -1,19 +1,14 @@
 import { FC, ReactNode, useRef } from "react";
 import { useShrinkOnScroll } from "../../hooks/useShrinkOnScroll";
+import { IBehaviour, IShrinkTo } from "../../interfaces";
 
 export const ShrinkOnScroll: FC<{
   imageHeight: number;
   minHeight: number;
-  shrinkTo?: "left" | "right";
-  fixedSize?: boolean;
+  shrinkTo?: IShrinkTo;
   children: ReactNode;
-}> = ({
-  imageHeight,
-  shrinkTo = "left",
-  minHeight,
-  children,
-  fixedSize = false,
-}) => {
+  behaviour: IBehaviour;
+}> = ({ imageHeight, shrinkTo = "left", minHeight, children, behaviour }) => {
   const outerContainerRef = useRef<HTMLDivElement | null>(null);
   const innerContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -22,8 +17,8 @@ export const ShrinkOnScroll: FC<{
     outerContainerRef,
     innerContainerRef,
     shrinkTo,
-    fixedSize,
     minHeight,
+    behaviour,
   });
 
   return (

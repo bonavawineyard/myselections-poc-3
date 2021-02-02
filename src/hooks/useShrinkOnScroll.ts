@@ -1,5 +1,6 @@
 import { MutableRefObject, useContext, useEffect } from "react";
 import { MainContext } from "../context/MainContext";
+import { IBehaviour, IShrinkTo } from "../interfaces";
 import { shrinkOnScroll } from "../utils/shrinkOnScroll";
 
 export const useShrinkOnScroll = ({
@@ -7,15 +8,15 @@ export const useShrinkOnScroll = ({
   outerContainerRef,
   shrinkTo,
   imageHeight,
-  fixedSize,
   minHeight,
+  behaviour,
 }: {
   innerContainerRef: MutableRefObject<HTMLDivElement | null>;
   outerContainerRef: MutableRefObject<HTMLDivElement | null>;
-  shrinkTo: "left" | "right";
+  shrinkTo: IShrinkTo;
   imageHeight: number;
-  fixedSize: boolean;
   minHeight: number;
+  behaviour: IBehaviour;
 }) => {
   const { setIsShrunk, setShrinkTo } = useContext(MainContext);
 
@@ -34,7 +35,7 @@ export const useShrinkOnScroll = ({
         setIsShrunk(!isShrunk);
       };
 
-      if (fixedSize) {
+      if (behaviour === "fixed_size") {
         innerContainerElement.style.transition = "max-height 0.3s";
       }
 
@@ -44,12 +45,12 @@ export const useShrinkOnScroll = ({
         shrinkTo,
         minHeightPercent: minHeight,
         onShrunkChange: toggleShrunkState,
-        fixedSize,
         imageHeight,
+        behaviour,
       });
     };
 
-    if (fixedSize) {
+    if (behaviour === "fixed_size") {
       innerContainerElement.style.maxHeight = `${imageHeight}px`;
     }
 
@@ -59,12 +60,12 @@ export const useShrinkOnScroll = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, [
-    fixedSize,
     imageHeight,
     outerContainerRef,
     innerContainerRef,
     minHeight,
     setIsShrunk,
     shrinkTo,
+    behaviour,
   ]);
 };

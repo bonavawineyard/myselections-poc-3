@@ -4,27 +4,27 @@
     "icon": "⤡",
     "to": "/shrink-left",
     "shrinkTo": "left",
-    "fixedSize": false
+    "behaviour": "shrink_on_scroll"
   },
   {
     "text": "Shrink",
     "icon": "⤢",
     "to": "/shrink-right",
     "shrinkTo": "right",
-    "fixedSize": false
+    "behaviour": "shrink_on_scroll"
   },
   {
     "text": "Fixed size",
     "icon": "⤡",
     "to": "/fixed-size-left",
     "shrinkTo": "left",
-    "fixedSize": true
+    "behaviour": "fixed_size"
   },
   {
     "text": "Fixed size",
     "icon": "⤢",
     "to": "/fixed-size-right",
     "shrinkTo": "right",
-    "fixedSize": true
+    "behaviour": "fixed_size"
   }
 ]

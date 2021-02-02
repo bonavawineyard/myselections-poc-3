@@ -1,3 +1,5 @@
+import { IBehaviour } from "../interfaces";
+
 const getPercentVisible = (rect: DOMRect) => {
   const { top: outerTop, height: outerHeight } = rect;
   return Math.round(((outerHeight + outerTop) / outerHeight) * 100);
@@ -46,16 +48,16 @@ export const shrinkOnScroll = ({
   shrinkTo,
   minHeightPercent,
   onShrunkChange,
-  fixedSize,
   imageHeight,
+  behaviour,
 }: {
   outerContainerElement: HTMLDivElement;
   innerContainerElement: HTMLDivElement;
   shrinkTo: string;
   minHeightPercent: number;
   onShrunkChange: (isShrunk: boolean) => void;
-  fixedSize: boolean;
   imageHeight: number;
+  behaviour: IBehaviour;
 }) => {
   const {
     top: outerTop,
@@ -69,7 +71,7 @@ export const shrinkOnScroll = ({
   // When the container is above viewport - image should shrink
   if (outerTop < 0) {
     if (!isShrunk) {
-      if (fixedSize) {
+      if (behaviour === "fixed_size") {
         innerContainerElement.style.maxHeight = `${
           (minHeightPercent / 100) * imageHeight
         }px`;
@@ -86,7 +88,7 @@ export const shrinkOnScroll = ({
       minHeightPercent
     );
   } else if (outerTop > 0 && isShrunk) {
-    if (fixedSize) {
+    if (behaviour === "fixed_size") {
       innerContainerElement.style.maxHeight = `${imageHeight}px`;
       if (shrinkTo === "left") {
         makeElementNotShrunk(innerContainerElement);
@@ -95,7 +97,7 @@ export const shrinkOnScroll = ({
         innerContainerElement.style.right = "0";
         innerContainerElement.style.left = "0";
       }
-    } else {
+    } else if (behaviour === "shrink_on_scroll") {
       makeElementNotShrunk(innerContainerElement);
     }
 

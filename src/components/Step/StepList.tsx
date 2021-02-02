@@ -1,11 +1,11 @@
 import React, { FC, useContext } from "react";
-import { StepRow } from "./Step/StepRow";
-import worktopList from "../fixtures/worktops.json";
-import whitegoodsList from "../fixtures/whitegoods.json";
-import { CardList } from "./Card/CardList";
-import { ICard } from "../interfaces";
-import { MainContext } from "../context/MainContext";
-import steps from "../fixtures/steps.json";
+import { StepRow } from "./StepRow";
+import worktopList from "../../fixtures/worktops.json";
+import whitegoodsList from "../../fixtures/whitegoods.json";
+import { CardList } from "../Card/CardList";
+import { ICard } from "../../interfaces";
+import { MainContext } from "../../context/MainContext";
+import steps from "../../fixtures/steps.json";
 
 const StepContent: FC<{ activeStep: number }> = ({ activeStep }) =>
   [
@@ -14,10 +14,10 @@ const StepContent: FC<{ activeStep: number }> = ({ activeStep }) =>
     <CardList cards={whitegoodsList as ICard[]} />,
   ][activeStep];
 
-export const Steps = () => {
+export const StepList = () => {
   const { activeStep, setActiveStep, selectedIndex } = useContext(MainContext);
 
-  const isDone = (step: any, index: number) => {
+  const isDone = (index: number) => {
     if (index === 0) {
       return true;
     } else if (index === 1) {
@@ -40,8 +40,8 @@ export const Steps = () => {
           text={step.text}
           stepNumber={`${index + 1}`}
           open={activeStep === index}
-          done={isDone(step, index)}
-          onSelect={() => setActiveStep(activeStep >= 0 ? -1 : index)}
+          done={isDone(index)}
+          onSelect={() => setActiveStep(index === activeStep ? -1 : index)}
         >
           <StepContent activeStep={activeStep} />
         </StepRow>

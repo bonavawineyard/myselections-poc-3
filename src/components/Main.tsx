@@ -6,7 +6,7 @@ import { MainNav } from "./MainNav";
 import { ShrinkExamples } from "./Scroll/ShrinkExamples";
 import { ImageFooterRow } from "./ImageFooterRow";
 import { Layers } from "./Layers";
-import { Steps } from "./Steps";
+import { StepList } from "./Step/StepList";
 
 const Main: FC = () => (
   <Router>
@@ -19,7 +19,7 @@ const Main: FC = () => (
             <ImageFooterRow />
           </div>
         </ShrinkExamples>
-        <Steps />
+        <StepList />
         <div className="py-4 italic text-xs">
           För att byta golv, gå till{" "}
           <a className="underline" href="/">

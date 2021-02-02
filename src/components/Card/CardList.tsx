@@ -23,7 +23,7 @@ export const CardList: FC<{
   };
 
   return (
-    <div className="w-full grid grid-cols-4 gap-2 py-4">
+    <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 gap-2 py-4">
       {cards.map((card, index) => (
         <Card
           {...card}

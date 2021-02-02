@@ -10,14 +10,13 @@ const makeElementShrunk = (
 ) => {
   element.style.position = "fixed";
   element.style.top = "0";
+  // element.style.left = "0";
+  // element.style.right = "0";
 
-  // const horizontalPosition =
-  //   document.body.clientWidth - (outerLeft + outerWidth);
-
-  element.style.left = "0";
-  element.style.right = "0";
-  // element.style.left = horizontalPosition + "px";
-  // element.style.right = horizontalPosition + "px";
+  const horizontalPosition =
+    document.body.clientWidth - (outerLeft + outerWidth);
+  element.style.left = horizontalPosition + "px";
+  element.style.right = horizontalPosition + "px";
 };
 
 const makeElementNotShrunk = (element: HTMLDivElement) => {
@@ -27,7 +26,7 @@ const makeElementNotShrunk = (element: HTMLDivElement) => {
   element.style.height = "100%";
 };
 
-const updateinnerContainerElementHeight = (
+const updateInnerContainerElementHeight = (
   outerContainerElement: HTMLDivElement,
   innerContainerElement: HTMLDivElement,
   outerBottom: number,
@@ -80,7 +79,7 @@ export const shrinkOnScroll = ({
       onShrunkChange(isShrunk);
     }
 
-    updateinnerContainerElementHeight(
+    updateInnerContainerElementHeight(
       outerContainerElement,
       innerContainerElement,
       outerBottom,

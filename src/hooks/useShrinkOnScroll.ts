@@ -35,7 +35,7 @@ export const useShrinkOnScroll = ({
       };
 
       if (fixedSize) {
-        innerContainerElement.style.transition = "all 0.3s";
+        innerContainerElement.style.transition = "max-height 0.3s";
       }
 
       shrinkOnScroll({

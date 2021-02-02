@@ -3,15 +3,15 @@ import { MainContext } from "../context/MainContext";
 import { shrinkOnScroll } from "../utils/shrinkOnScroll";
 
 export const useShrinkOnScroll = ({
-  imageRef,
-  imageOuterRef,
+  innerContainerRef,
+  outerContainerRef,
   shrinkTo,
   imageHeight,
   fixedSize,
   minHeight,
 }: {
-  imageRef: MutableRefObject<HTMLDivElement | null>;
-  imageOuterRef: MutableRefObject<HTMLDivElement | null>;
+  innerContainerRef: MutableRefObject<HTMLDivElement | null>;
+  outerContainerRef: MutableRefObject<HTMLDivElement | null>;
   shrinkTo: "left" | "right";
   imageHeight: number;
   fixedSize: boolean;
@@ -26,8 +26,8 @@ export const useShrinkOnScroll = ({
   }, [setShrinkTo, shrinkTo]);
 
   useEffect(() => {
-    const imageElement = imageRef.current as HTMLDivElement;
-    const imageOuterElement = imageOuterRef.current as HTMLDivElement;
+    const innerContainerElement = innerContainerRef.current as HTMLDivElement;
+    const outerContainerElement = outerContainerRef.current as HTMLDivElement;
 
     const handleScroll = () => {
       const toggleShrunkState = (isShrunk: boolean) => {
@@ -35,12 +35,12 @@ export const useShrinkOnScroll = ({
       };
 
       if (fixedSize) {
-        imageElement.style.transition = "all 0.3s";
+        innerContainerElement.style.transition = "all 0.3s";
       }
 
       shrinkOnScroll({
-        imageOuterElement,
-        imageElement,
+        outerContainerElement,
+        innerContainerElement,
         shrinkTo,
         minHeightPercent: minHeight,
         onShrunkChange: toggleShrunkState,
@@ -50,7 +50,7 @@ export const useShrinkOnScroll = ({
     };
 
     if (fixedSize) {
-      imageElement.style.maxHeight = `${imageHeight}px`;
+      innerContainerElement.style.maxHeight = `${imageHeight}px`;
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -61,8 +61,8 @@ export const useShrinkOnScroll = ({
   }, [
     fixedSize,
     imageHeight,
-    imageOuterRef,
-    imageRef,
+    outerContainerRef,
+    innerContainerRef,
     minHeight,
     setIsShrunk,
     shrinkTo,

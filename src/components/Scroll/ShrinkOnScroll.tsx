@@ -14,13 +14,13 @@ export const ShrinkOnScroll: FC<{
   children,
   fixedSize = false,
 }) => {
-  const imageOuterRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLDivElement | null>(null);
+  const outerContainerRef = useRef<HTMLDivElement | null>(null);
+  const innerContainerRef = useRef<HTMLDivElement | null>(null);
 
   useShrinkOnScroll({
     imageHeight,
-    imageOuterRef,
-    imageRef,
+    outerContainerRef,
+    innerContainerRef,
     shrinkTo,
     fixedSize,
     minHeight,
@@ -28,11 +28,11 @@ export const ShrinkOnScroll: FC<{
 
   return (
     <div
-      ref={imageOuterRef}
+      ref={outerContainerRef}
       style={{ height: imageHeight }}
       className="pointer-events-none"
     >
-      <div ref={imageRef} style={{ height: "100%" }}>
+      <div ref={innerContainerRef} style={{ height: "100%" }}>
         {children}
       </div>
     </div>

@@ -4,52 +4,54 @@ const getPercentVisible = (rect: DOMRect) => {
 };
 
 const makeElementShrunk = (
-  imageElement: HTMLDivElement,
+  element: HTMLDivElement,
   outerLeft: number,
   outerWidth: number
 ) => {
-  imageElement.style.position = "fixed";
-  imageElement.style.top = "0";
-  // imageElement.style.boxShadow = "0px 0px 5px 1px";
+  element.style.position = "fixed";
+  element.style.top = "0";
 
-  const horizontalPosition =
-    document.body.clientWidth - (outerLeft + outerWidth);
-  imageElement.style.left = horizontalPosition + "px";
-  imageElement.style.right = horizontalPosition + "px";
+  // const horizontalPosition =
+  //   document.body.clientWidth - (outerLeft + outerWidth);
+
+  element.style.left = "0";
+  element.style.right = "0";
+  // element.style.left = horizontalPosition + "px";
+  // element.style.right = horizontalPosition + "px";
 };
 
-const makeElementNotShrunk = (imageElement: HTMLDivElement) => {
-  imageElement.style.removeProperty("position");
-  imageElement.style.removeProperty("top");
-  imageElement.style.removeProperty("right");
-  imageElement.style.height = "100%";
+const makeElementNotShrunk = (element: HTMLDivElement) => {
+  element.style.removeProperty("position");
+  element.style.removeProperty("top");
+  element.style.removeProperty("right");
+  element.style.height = "100%";
 };
 
-const updateImageElementHeight = (
-  imageOuterElement: HTMLDivElement,
-  imageElement: HTMLDivElement,
+const updateinnerContainerElementHeight = (
+  outerContainerElement: HTMLDivElement,
+  innerContainerElement: HTMLDivElement,
   outerBottom: number,
   minHeightPercent: number
 ) => {
   if (
-    getPercentVisible(imageOuterElement.getBoundingClientRect()) >
+    getPercentVisible(outerContainerElement.getBoundingClientRect()) >
     minHeightPercent
   ) {
-    imageElement.style.height = outerBottom + "px";
+    innerContainerElement.style.height = outerBottom + "px";
   }
 };
 
 export const shrinkOnScroll = ({
-  imageOuterElement,
-  imageElement,
+  outerContainerElement,
+  innerContainerElement,
   shrinkTo,
   minHeightPercent,
   onShrunkChange,
   fixedSize,
   imageHeight,
 }: {
-  imageOuterElement: HTMLDivElement;
-  imageElement: HTMLDivElement;
+  outerContainerElement: HTMLDivElement;
+  innerContainerElement: HTMLDivElement;
   shrinkTo: string;
   minHeightPercent: number;
   onShrunkChange: (isShrunk: boolean) => void;
@@ -61,41 +63,41 @@ export const shrinkOnScroll = ({
     bottom: outerBottom,
     left: outerLeft,
     width: outerWidth,
-  } = imageOuterElement.getBoundingClientRect();
+  } = outerContainerElement.getBoundingClientRect();
 
-  const isShrunk = imageElement.style.position === "fixed";
+  const isShrunk = innerContainerElement.style.position === "fixed";
 
-  // When the image placeholder is above viewport - image should shrink
+  // When the container is above viewport - image should shrink
   if (outerTop < 0) {
     if (!isShrunk) {
       if (fixedSize) {
-        imageElement.style.maxHeight = `${
+        innerContainerElement.style.maxHeight = `${
           (minHeightPercent / 100) * imageHeight
         }px`;
       }
 
-      makeElementShrunk(imageElement, outerLeft, outerWidth);
+      makeElementShrunk(innerContainerElement, outerLeft, outerWidth);
       onShrunkChange(isShrunk);
     }
 
-    updateImageElementHeight(
-      imageOuterElement,
-      imageElement,
+    updateinnerContainerElementHeight(
+      outerContainerElement,
+      innerContainerElement,
       outerBottom,
       minHeightPercent
     );
   } else if (outerTop > 0 && isShrunk) {
     if (fixedSize) {
-      imageElement.style.maxHeight = `${imageHeight}px`;
+      innerContainerElement.style.maxHeight = `${imageHeight}px`;
       if (shrinkTo === "left") {
-        makeElementNotShrunk(imageElement);
+        makeElementNotShrunk(innerContainerElement);
       } else {
-        imageElement.style.position = "absolute";
-        imageElement.style.right = "0";
-        imageElement.style.left = "0";
+        innerContainerElement.style.position = "absolute";
+        innerContainerElement.style.right = "0";
+        innerContainerElement.style.left = "0";
       }
     } else {
-      makeElementNotShrunk(imageElement);
+      makeElementNotShrunk(innerContainerElement);
     }
 
     onShrunkChange(isShrunk);

@@ -116,22 +116,17 @@ export const shrinkOnScroll = ({
 
       if (behaviour === "fixed_size" || behaviour === "shrink_on_scroll") {
         makeElementShrunk(innerContainerElement, outerLeft, outerWidth);
-        onShrunkChange(isShrunk);
       }
 
-      if (
-        innerContainerElement.style.position !== "fixed" &&
-        behaviour === "fixed_size_outside"
-      ) {
+      if (behaviour === "fixed_size_outside") {
         shrinkToMiddleLeft(innerContainerElement);
       }
 
-      if (
-        innerContainerElement.style.position !== "fixed" &&
-        behaviour === "fixed_size_outside_bottom"
-      ) {
+      if (behaviour === "fixed_size_outside_bottom") {
         shrinkToBottomRight(innerContainerElement);
       }
+
+      onShrunkChange(isShrunk);
     }
 
     if (behaviour === "fixed_size" || behaviour === "shrink_on_scroll") {

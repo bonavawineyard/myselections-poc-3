@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { MainNavRadio } from "./MainNavRadio";
-
 export const MainNav = () => {
   const location = useLocation();
 
@@ -30,16 +29,18 @@ export const MainNav = () => {
   ];
 
   return (
-    <nav className="pt-3 pb-10">
+    <nav className="pt-3 pb-10 h-40">
       <ul className="flex gap-10 items-start justify-center text-xl font-medium">
-        <li>Default</li>
+        <li>
+          <NavLink to="/" exact>
+            Default
+          </NavLink>
+        </li>
         {newRoutes.map((route, index) => (
           <Fragment key={`route_${index}`}>
             <li>|</li>
             <li>
-              <NavLink to={route.routes[0].path} activeClassName="font-bold">
-                {route.title}
-              </NavLink>
+              <NavLink to={route.routes[0].path}>{route.title}</NavLink>
               {route.routes.some(
                 (childRoute) => childRoute.path === location.pathname
               ) && (

@@ -1,5 +1,4 @@
 import React, { FC, Fragment } from "react";
-import { TempText } from "../Misc/TempText";
 import { MainContextProvider } from "../../context/MainContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MainNav } from "./MainNav";
@@ -26,9 +25,7 @@ const Main: FC = () => (
             valen som påverkar hela hemmet
           </a>
         </div>
-        <div className="mt-80">
-          <TempText />
-        </div>
+        <div className="mt-80"></div>
       </Fragment>
     </MainContextProvider>
   </Router>

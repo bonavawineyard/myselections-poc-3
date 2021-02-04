@@ -2,7 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 
 type ILayerType = "base" | "worktop" | "whitegoods_fridge" | "whitegoods_micro";
 export type IShrinkTo = "left" | "right";
-export type IBehaviour = "shrink_on_scroll" | "fixed_size";
+export type IBehaviour =
+  | ""
+  | "shrink_on_scroll"
+  | "fixed_size"
+  | "fixed_size_outside"
+  | "fixed_size_outside_bottom";
 
 export interface ICard {
   name: string;
@@ -40,11 +45,13 @@ export interface ISelectedIndex {
 
 export interface IMainContext {
   activeStep: number;
+  currentBehaviour: IBehaviour;
   isShrunk?: boolean | null;
   layerImages?: ILayerImage[];
   routes: IRoute[];
   selectedIndex: ISelectedIndex;
   setActiveStep: Dispatch<SetStateAction<number>>;
+  setCurrentBehaviour: Dispatch<SetStateAction<IBehaviour>>;
   setIsShrunk: (isShrunk: boolean) => void;
   setLayerImages: Dispatch<SetStateAction<ILayerImage[] | undefined>>;
   setSelectedIndex: Dispatch<SetStateAction<ISelectedIndex>>;

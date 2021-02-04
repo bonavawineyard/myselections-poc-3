@@ -18,7 +18,13 @@ export const useShrinkOnScroll = ({
   minHeight: number;
   behaviour: IBehaviour;
 }) => {
-  const { setIsShrunk, setShrinkTo } = useContext(MainContext);
+  const { setIsShrunk, setShrinkTo, setCurrentBehaviour } = useContext(
+    MainContext
+  );
+
+  useEffect(() => {
+    setCurrentBehaviour(behaviour);
+  }, [behaviour, setCurrentBehaviour]);
 
   useEffect(() => {
     if (setShrinkTo) {
@@ -52,6 +58,14 @@ export const useShrinkOnScroll = ({
 
     if (behaviour === "fixed_size") {
       innerContainerElement.style.maxHeight = `${imageHeight}px`;
+    }
+
+    if (behaviour === "fixed_size_outside") {
+      innerContainerElement.ontransitionend = () => {
+        if (innerContainerElement.style.position === "absolute") {
+          innerContainerElement.style.removeProperty("position");
+        }
+      };
     }
 
     window.addEventListener("scroll", handleScroll);

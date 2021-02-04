@@ -21,13 +21,22 @@ export const ShrinkOnScroll: FC<{
     behaviour,
   });
 
+  const isOutside =
+    behaviour === "fixed_size_outside" ||
+    behaviour === "fixed_size_outside_bottom";
+
+  const getStyle = () =>
+    isOutside
+      ? { maxWidth: "1024px", transition: "all 0.2s" }
+      : { height: "100%" };
+
   return (
     <div
       ref={outerContainerRef}
       style={{ height: imageHeight }}
-      className="pointer-events-none"
+      className={`${!isOutside ? "pointer-events-none" : ""}`}
     >
-      <div ref={innerContainerRef} style={{ height: "100%" }}>
+      <div ref={innerContainerRef} style={getStyle()}>
         {children}
       </div>
     </div>

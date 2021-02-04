@@ -4,6 +4,7 @@ import routes from "../fixtures/routes.json";
 
 const defaultValues = {
   activeStep: 1,
+  currentBehaviour: "",
   layerImages: [
     {
       src: "/layers/Modern_style_base/Modern_style_base.png",
@@ -17,6 +18,7 @@ const defaultValues = {
     worktop: -1,
   },
   setActiveStep: () => {},
+  setCurrentBehaviour: () => {},
   setIsShrunk: () => {},
   setLayerImages: () => {},
   setSelectedIndex: () => {},
@@ -34,16 +36,21 @@ export const MainContextProvider: FC<{ children: ReactNode }> = ({
   const [shrinkTo, setShrinkTo] = useState<IShrinkTo>();
   const [layerImages, setLayerImages] = useState(defaultValues.layerImages);
   const [activeStep, setActiveStep] = useState(defaultValues.activeStep);
+  const [currentBehaviour, setCurrentBehaviour] = useState(
+    defaultValues.currentBehaviour
+  );
 
   return (
     <MainContext.Provider
       value={{
         activeStep,
+        currentBehaviour,
         isShrunk,
         layerImages,
         routes: defaultValues.routes,
         selectedIndex,
         setActiveStep,
+        setCurrentBehaviour,
         setIsShrunk,
         setLayerImages,
         setSelectedIndex,

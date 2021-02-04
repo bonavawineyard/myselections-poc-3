@@ -26,5 +26,19 @@
     "to": "/fixed-size-right",
     "shrinkTo": "right",
     "behaviour": "fixed_size"
+  },
+  {
+    "text": "Outside content",
+    "icon": "⤡",
+    "to": "/fixed-outside-left",
+    "shrinkTo": "left",
+    "behaviour": "fixed_size_outside"
+  },
+  {
+    "text": "Outside bottom",
+    "icon": "⤢",
+    "to": "/fixed-outside-right",
+    "shrinkTo": "right",
+    "behaviour": "fixed_size_outside_bottom"
   }
 ]

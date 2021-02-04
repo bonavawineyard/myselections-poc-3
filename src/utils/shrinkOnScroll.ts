@@ -12,8 +12,6 @@ const makeElementShrunk = (
 ) => {
   element.style.position = "fixed";
   element.style.top = "0";
-  // element.style.left = "0";
-  // element.style.right = "0";
 
   const horizontalPosition =
     document.body.clientWidth - (outerLeft + outerWidth);
@@ -40,6 +38,39 @@ const updateInnerContainerElementHeight = (
   ) {
     innerContainerElement.style.height = outerBottom + "px";
   }
+};
+
+const shrinkToMiddleLeft = (element: HTMLDivElement) => {
+  element.style.position = "fixed";
+  element.style.maxWidth = "200px";
+  element.style.marginLeft = "-220px";
+  element.style.top = "10%";
+};
+
+const shrinkToBottomRight = (element: HTMLDivElement) => {
+  element.style.position = "fixed";
+  element.style.maxWidth = "200px";
+  element.style.marginLeft = "1044px";
+
+  //TODO: temp
+  element.style.bottom = "500px";
+  setTimeout(() => {
+    element.style.bottom = "50px";
+  });
+};
+
+const expandFromMiddleLeft = (element: HTMLDivElement) => {
+  element.style.position = "absolute";
+  element.style.maxWidth = "1024px";
+  element.style.removeProperty("margin-left");
+  element.style.removeProperty("top");
+};
+
+const expandFromBottomRight = (element: HTMLDivElement) => {
+  element.style.maxWidth = "1024px";
+  element.style.marginLeft = "0";
+  element.style.position = "absolute";
+  element.style.bottom = "0";
 };
 
 export const shrinkOnScroll = ({
@@ -69,7 +100,13 @@ export const shrinkOnScroll = ({
   const isShrunk = innerContainerElement.style.position === "fixed";
 
   // When the container is above viewport - image should shrink
-  if (outerTop < 0) {
+  const startWhenOuterTop =
+    behaviour === "fixed_size_outside" ||
+    behaviour === "fixed_size_outside_bottom"
+      ? -250
+      : 0;
+
+  if (outerTop <= startWhenOuterTop) {
     if (!isShrunk) {
       if (behaviour === "fixed_size") {
         innerContainerElement.style.maxHeight = `${
@@ -77,16 +114,34 @@ export const shrinkOnScroll = ({
         }px`;
       }
 
-      makeElementShrunk(innerContainerElement, outerLeft, outerWidth);
-      onShrunkChange(isShrunk);
+      if (behaviour === "fixed_size" || behaviour === "shrink_on_scroll") {
+        makeElementShrunk(innerContainerElement, outerLeft, outerWidth);
+        onShrunkChange(isShrunk);
+      }
+
+      if (
+        innerContainerElement.style.position !== "fixed" &&
+        behaviour === "fixed_size_outside"
+      ) {
+        shrinkToMiddleLeft(innerContainerElement);
+      }
+
+      if (
+        innerContainerElement.style.position !== "fixed" &&
+        behaviour === "fixed_size_outside_bottom"
+      ) {
+        shrinkToBottomRight(innerContainerElement);
+      }
     }
 
-    updateInnerContainerElementHeight(
-      outerContainerElement,
-      innerContainerElement,
-      outerBottom,
-      minHeightPercent
-    );
+    if (behaviour === "fixed_size" || behaviour === "shrink_on_scroll") {
+      updateInnerContainerElementHeight(
+        outerContainerElement,
+        innerContainerElement,
+        outerBottom,
+        minHeightPercent
+      );
+    }
   } else if (outerTop > 0 && isShrunk) {
     if (behaviour === "fixed_size") {
       innerContainerElement.style.maxHeight = `${imageHeight}px`;
@@ -100,7 +155,13 @@ export const shrinkOnScroll = ({
     } else if (behaviour === "shrink_on_scroll") {
       makeElementNotShrunk(innerContainerElement);
     }
-
+    onShrunkChange(isShrunk);
+  } else if (outerTop > startWhenOuterTop && isShrunk) {
+    if (behaviour === "fixed_size_outside") {
+      expandFromMiddleLeft(innerContainerElement);
+    } else if (behaviour === "fixed_size_outside_bottom") {
+      expandFromBottomRight(innerContainerElement);
+    }
     onShrunkChange(isShrunk);
   }
 };

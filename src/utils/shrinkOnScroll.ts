@@ -42,14 +42,14 @@ const updateInnerContainerElementHeight = (
 
 const shrinkToMiddleLeft = (element: HTMLDivElement) => {
   element.style.position = "fixed";
-  element.style.maxWidth = "200px";
-  element.style.marginLeft = "-220px";
+  element.style.maxWidth = "300px";
+  element.style.marginLeft = "-320px";
   element.style.top = "10%";
 };
 
 const shrinkToBottomRight = (element: HTMLDivElement) => {
   element.style.position = "fixed";
-  element.style.maxWidth = "200px";
+  element.style.maxWidth = "300px";
   element.style.marginLeft = "1044px";
 
   //TODO: temp

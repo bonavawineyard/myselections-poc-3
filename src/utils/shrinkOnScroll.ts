@@ -106,7 +106,9 @@ export const shrinkOnScroll = ({
       ? -250
       : 0;
 
-  if (outerTop <= startWhenOuterTop) {
+  const isOutsideViewport = outerTop <= startWhenOuterTop;
+
+  if (isOutsideViewport) {
     if (!isShrunk) {
       if (behaviour === "fixed_size") {
         innerContainerElement.style.maxHeight = `${

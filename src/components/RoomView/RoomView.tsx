@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { MainContext } from "../context/MainContext";
+import { MainContext } from "../../context/MainContext";
 
-export const Layers = () => {
+export const RoomView = () => {
   const { shrinkTo, isShrunk, layerImages, currentBehaviour } = useContext(
     MainContext
   );

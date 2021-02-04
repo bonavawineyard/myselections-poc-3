@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
-import { MainContext } from "../context/MainContext";
+import { MainContext } from "../../context/MainContext";
 
-export const ImageFooterRow: FC = () => {
+export const RoomViewFooter: FC = () => {
   const { isShrunk } = useContext(MainContext);
 
   return (

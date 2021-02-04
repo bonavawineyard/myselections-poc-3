@@ -1,9 +1,9 @@
 import React, { FC, ReactNode, useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import { MainContext } from "../../context/MainContext";
-import { ShrinkOnScroll } from "./ShrinkOnScroll";
+import { ShrinkOnScroll } from "../Scroll/ShrinkOnScroll";
 
-export const ShrinkExamples: FC<ReactNode> = ({ children }) => {
+export const MainContent: FC<ReactNode> = ({ children }) => {
   const { routes } = useContext(MainContext);
 
   return (

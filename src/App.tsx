@@ -1,4 +1,4 @@
-import Main from "./components/Main";
+import Main from "./components/Main/Main";
 
 const App = () => (
   <div className="container mx-auto max-w-5xl">

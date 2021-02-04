@@ -1,24 +1,24 @@
 import React, { FC, Fragment } from "react";
-import { TempText } from "./TempText";
-import { MainContextProvider } from "../context/MainContext";
+import { TempText } from "../Misc/TempText";
+import { MainContextProvider } from "../../context/MainContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MainNav } from "./MainNav";
-import { ShrinkExamples } from "./Scroll/ShrinkExamples";
-import { ImageFooterRow } from "./ImageFooterRow";
-import { Layers } from "./Layers";
-import { StepList } from "./Step/StepList";
+import { MainContent } from "./MainContent";
+import { RoomViewFooter } from "../RoomView/RoomViewFooter";
+import { RoomView } from "../RoomView/RoomView";
+import { StepList } from "../Step/StepList";
 
 const Main: FC = () => (
   <Router>
     <MainContextProvider>
       <Fragment>
         <MainNav />
-        <ShrinkExamples>
-          <Layers />
+        <MainContent>
+          <RoomView />
           <div className="absolute bottom-0 w-full">
-            <ImageFooterRow />
+            <RoomViewFooter />
           </div>
-        </ShrinkExamples>
+        </MainContent>
         <StepList />
         <div className="py-4 italic text-xs">
           För att byta golv, gå till{" "}

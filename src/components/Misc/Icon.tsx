@@ -1,4 +1,4 @@
-import { IIcon } from "../interfaces";
+import { IIcon } from "../../interfaces";
 
 const Icon: React.FunctionComponent<IIcon> = ({ type }) => {
   const paths: any = {

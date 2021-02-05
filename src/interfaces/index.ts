@@ -48,12 +48,14 @@ export interface IMainContext {
   currentBehaviour: IBehaviour;
   isShrunk?: boolean | null;
   layerImages?: ILayerImage[];
+  roomViewWidth: number;
   routes: IRoute[];
   selectedIndex: ISelectedIndex;
   setActiveStep: Dispatch<SetStateAction<number>>;
   setCurrentBehaviour: Dispatch<SetStateAction<IBehaviour>>;
   setIsShrunk: (isShrunk: boolean) => void;
   setLayerImages: Dispatch<SetStateAction<ILayerImage[] | undefined>>;
+  setRoomViewWidth: Dispatch<SetStateAction<number>>;
   setSelectedIndex: Dispatch<SetStateAction<ISelectedIndex>>;
   setShrinkTo?: (shrinkTo: IShrinkTo) => void;
   shrinkTo?: IShrinkTo;

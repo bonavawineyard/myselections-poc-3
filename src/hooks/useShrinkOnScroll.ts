@@ -18,9 +18,12 @@ export const useShrinkOnScroll = ({
   minHeight: number;
   behaviour: IBehaviour;
 }) => {
-  const { setIsShrunk, setShrinkTo, setCurrentBehaviour } = useContext(
-    MainContext
-  );
+  const {
+    setIsShrunk,
+    setShrinkTo,
+    setCurrentBehaviour,
+    roomViewWidth,
+  } = useContext(MainContext);
 
   useEffect(() => {
     setCurrentBehaviour(behaviour);
@@ -53,6 +56,7 @@ export const useShrinkOnScroll = ({
         onShrunkChange: toggleShrunkState,
         imageHeight,
         behaviour,
+        roomViewWidth,
       });
     };
 
@@ -81,5 +85,6 @@ export const useShrinkOnScroll = ({
     setIsShrunk,
     shrinkTo,
     behaviour,
+    roomViewWidth,
   ]);
 };

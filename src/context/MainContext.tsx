@@ -11,6 +11,7 @@ const defaultValues = {
       type: "base",
     },
   ],
+  roomViewWidth: 500,
   routes,
   selectedIndex: {
     whitegoods_fridge: -1,
@@ -21,6 +22,7 @@ const defaultValues = {
   setCurrentBehaviour: () => {},
   setIsShrunk: () => {},
   setLayerImages: () => {},
+  setRoomViewWidth: () => {},
   setSelectedIndex: () => {},
 } as IMainContext;
 
@@ -39,6 +41,9 @@ export const MainContextProvider: FC<{ children: ReactNode }> = ({
   const [currentBehaviour, setCurrentBehaviour] = useState(
     defaultValues.currentBehaviour
   );
+  const [roomViewWidth, setRoomViewWidth] = useState(
+    defaultValues.roomViewWidth
+  );
 
   return (
     <MainContext.Provider
@@ -47,12 +52,14 @@ export const MainContextProvider: FC<{ children: ReactNode }> = ({
         currentBehaviour,
         isShrunk,
         layerImages,
+        roomViewWidth,
         routes: defaultValues.routes,
         selectedIndex,
         setActiveStep,
         setCurrentBehaviour,
         setIsShrunk,
         setLayerImages,
+        setRoomViewWidth,
         setSelectedIndex,
         setShrinkTo,
         shrinkTo,

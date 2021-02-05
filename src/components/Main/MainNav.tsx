@@ -1,32 +1,47 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { MainContext } from "../../context/MainContext";
 import { MainNavRadio } from "./MainNavRadio";
+
+interface IRoute {
+  title: string;
+  path: string;
+  routes: IRoute[];
+}
+
+const newRoutes = [
+  {
+    title: "Shrink on scroll",
+    path: "",
+    routes: [
+      { title: "Left", path: "/shrink-left" },
+      { title: "Right", path: "/shrink-right" },
+    ],
+  },
+  {
+    title: "Shrink to fixed size",
+    path: "",
+    routes: [
+      { title: "Left", path: "/fixed-size-left" },
+      { title: "Right", path: "/fixed-size-right" },
+    ],
+  },
+  {
+    title: "Shrink outside of content",
+    path: "/fixed-outside-left",
+    routes: [
+      { title: "Left", path: "/fixed-outside-left" },
+      { title: "Right", path: "/fixed-outside-right" },
+    ],
+  },
+] as IRoute[];
+
 export const MainNav = () => {
+  const { roomViewWidth, setRoomViewWidth } = useContext(MainContext);
   const location = useLocation();
 
-  const newRoutes = [
-    {
-      title: "Shrink on scroll",
-      routes: [
-        { title: "Left", path: "/shrink-left" },
-        { title: "Right", path: "/shrink-right" },
-      ],
-    },
-    {
-      title: "Shrink to fixed size",
-      routes: [
-        { title: "Left", path: "/fixed-size-left" },
-        { title: "Right", path: "/fixed-size-right" },
-      ],
-    },
-    {
-      title: "Shrink outside of content",
-      routes: [
-        { title: "Left", path: "/fixed-outside-left" },
-        { title: "Right", path: "/fixed-outside-right" },
-      ],
-    },
-  ];
+  const hasChildRoutes = (routes: IRoute[]) =>
+    routes.some((childRoute) => childRoute.path === location.pathname);
 
   return (
     <nav className="pt-3 pb-10 h-40">
@@ -41,9 +56,7 @@ export const MainNav = () => {
             <li>|</li>
             <li>
               <NavLink to={route.routes[0].path}>{route.title}</NavLink>
-              {route.routes.some(
-                (childRoute) => childRoute.path === location.pathname
-              ) && (
+              {hasChildRoutes(route.routes) && (
                 <div className="text-base text-center">
                   {route.routes.map((childRoute, index) => (
                     <MainNavRadio
@@ -52,6 +65,21 @@ export const MainNav = () => {
                       text={childRoute.title}
                     />
                   ))}
+                  {route.path === "/fixed-outside-left" && (
+                    <div>
+                      <label>
+                        <span>Width:</span>
+                        <input
+                          type="text"
+                          className="border w-16 ml-2 px-2"
+                          value={roomViewWidth}
+                          onChange={(e) =>
+                            setRoomViewWidth(Number(e.target.value))
+                          }
+                        />
+                      </label>
+                    </div>
+                  )}
                 </div>
               )}
             </li>

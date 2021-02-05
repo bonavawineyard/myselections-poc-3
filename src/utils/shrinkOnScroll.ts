@@ -40,16 +40,20 @@ const updateInnerContainerElementHeight = (
   }
 };
 
-const shrinkToMiddleLeft = (element: HTMLDivElement) => {
+const shrinkToMiddleLeft = (element: HTMLDivElement, roomViewWidth: number) => {
+  const margin = 20;
   element.style.position = "fixed";
-  element.style.maxWidth = "300px";
-  element.style.marginLeft = "-320px";
+  element.style.maxWidth = `${roomViewWidth}px`;
+  element.style.marginLeft = `-${roomViewWidth + margin}px`;
   element.style.top = "10%";
 };
 
-const shrinkToBottomRight = (element: HTMLDivElement) => {
+const shrinkToBottomRight = (
+  element: HTMLDivElement,
+  roomViewWidth: number
+) => {
   element.style.position = "fixed";
-  element.style.maxWidth = "300px";
+  element.style.maxWidth = `${roomViewWidth}px`;
   element.style.marginLeft = "1044px";
 
   //TODO: temp
@@ -81,6 +85,7 @@ export const shrinkOnScroll = ({
   onShrunkChange,
   imageHeight,
   behaviour,
+  roomViewWidth,
 }: {
   outerContainerElement: HTMLDivElement;
   innerContainerElement: HTMLDivElement;
@@ -89,6 +94,7 @@ export const shrinkOnScroll = ({
   onShrunkChange: (isShrunk: boolean) => void;
   imageHeight: number;
   behaviour: IBehaviour;
+  roomViewWidth: number;
 }) => {
   const {
     top: outerTop,
@@ -121,11 +127,11 @@ export const shrinkOnScroll = ({
       }
 
       if (behaviour === "fixed_size_outside") {
-        shrinkToMiddleLeft(innerContainerElement);
+        shrinkToMiddleLeft(innerContainerElement, roomViewWidth);
       }
 
       if (behaviour === "fixed_size_outside_bottom") {
-        shrinkToBottomRight(innerContainerElement);
+        shrinkToBottomRight(innerContainerElement, roomViewWidth);
       }
 
       onShrunkChange(isShrunk);
